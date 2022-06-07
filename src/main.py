@@ -1,7 +1,7 @@
 
-from tools.token import getToken
+from tools.token import get_token
 
-TOKEN = getToken()
+TOKEN = get_token()
 
 
 
