@@ -1,24 +1,6 @@
-import sqlite3 as sl
-import ABC
-
-SQLLITE_DB_PATH = 'test.db'
-
-# con = sl.connect(SQLLITE_DB_PATH)
-
-
-# with con:
-#     con.execute("""
-#         CREATE TABLE USER (
-#             id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-#             name TEXT,
-#             age INTEGER
-#         );
-
-
-
-class DBInterface(ABC):
-    
+from models import *
 
 
 if __name__ == "__main__":
-    
+    with db:
+        db.create_tables([User])
