@@ -2,21 +2,21 @@ from peewee import *
 
 SQLLITE_DB_PATH = 'test.db'
 
-db = SqliteDatabase(SQLLITE_DB_PATH)
+database   = SqliteDatabase(SQLLITE_DB_PATH)
 
 
 class BaseModel(Model):
-    id = PrimaryKeyField(unique=True)
-
     class Meta:
-        database = db
-        order_by = 'id'
+        database = database
 
 
 class User(BaseModel):
+    id = PrimaryKeyField(unique=True)
+    chat_id = IntegerField()
     user_id = IntegerField()
     status = BooleanField(default=True)
     selected_counter = IntegerField(default=0)
 
     class Meta:
         db_table = "users"
+        order_by = 'id'
