@@ -133,3 +133,7 @@ dmypy.json
 # token
 
 token.json
+User.json
+
+# sqlite
+*.db
