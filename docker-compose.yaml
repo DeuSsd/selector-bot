@@ -1,0 +1,16 @@
+version: "3.3"
+
+services:
+  selected-tgbot:
+    image: quteas/selected-tgbot:latest
+    container_name: selected-tgbot
+    command: bash -c "python /app/src/bot/models/create_tables.py && python /app/src/bot/app.py"
+    environment:
+      TOKEN: "0123456789:ABCDEFGHIABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    ports:
+      - 80:80
+      - 443:443
+      - 88:88
+      - 8443:8443
+    volumes:
+      - './database:/app/database'

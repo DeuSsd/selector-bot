@@ -1,15 +1,18 @@
 import json
-from pathlib import Path
+# from pathlib import Path
 
 
 
-def get_token(tokenPath = "token.json"):
+def get_token(tokenPath = "token/token.json"):
     # assert 
-    tokenJson = ''
-    with open(tokenPath, "r") as token_file:
-        tokenJson = json.load(token_file)
-    return tokenJson.get("TOKEN")
-        
+    tokenJson = {"TOKEN": ""}
+    try:
+        with open(tokenPath, "r") as token_file:
+            tokenJson = json.load(token_file)
+        return tokenJson
+    except FileNotFoundError as e:
+        print(e)
+        return tokenJson
 
 
 if __name__ == "__main__":
