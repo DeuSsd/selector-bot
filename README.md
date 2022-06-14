@@ -50,5 +50,5 @@ services:
 2. Запустите в оболочке shell docker контейнер
 
 ```shell
-$ docekr-compose -d up
+$ docekr-compose up -d
 ```
