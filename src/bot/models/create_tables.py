@@ -1,4 +1,7 @@
+import os
+from pathlib import Path
 from models import *
+
 
 
 def create_tables():
@@ -7,5 +10,10 @@ def create_tables():
         
         
 if __name__ == '__main__':
-    create_tables()
+    if not os.path.isfile(Path(SQLITE_DB_PATH)):
+        print("create")
+        create_tables()
+    else:
+        print("exist")
+        
     

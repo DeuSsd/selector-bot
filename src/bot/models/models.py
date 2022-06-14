@@ -1,9 +1,9 @@
 
 from peewee import *
 
-SQLLITE_DB_PATH = 'test.db'
+SQLITE_DB_PATH = 'database/test.db'
 
-database = SqliteDatabase(SQLLITE_DB_PATH)
+database = SqliteDatabase(SQLITE_DB_PATH)
 
 
 class BaseModel(Model):

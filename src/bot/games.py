@@ -21,7 +21,7 @@ class BasicGame(ABC):
     @abstractmethod
     def check_available_game(self):
         pass
-    
+
     @abstractmethod
     def get_user_id(self):
         pass
@@ -58,7 +58,7 @@ class GameHandsomeOFTheDay(BasicGame):
         new_record = Game(
             chat_id=chat_id,
             user_id=user_id,
-            date_handsome_of_day=datetime.now(),
+            date_handsome_of_day=datetime.date(datetime.now()),
             handsome_of_day=True,
         )
         new_record.save()
@@ -67,9 +67,8 @@ class GameHandsomeOFTheDay(BasicGame):
 
     def _available_game(self, record_game: Game) -> bool:
         return not record_game.date_handsome_of_day == datetime.date(datetime.now())
-
+    
     # def _update_event(self, record_event: Game) -> bool:
-        
         # if self._available_game(record_event):
         #     # record_event.date_handsome_of_day = datetime.now()
         #     # record_event.save()
@@ -77,8 +76,8 @@ class GameHandsomeOFTheDay(BasicGame):
         # else:
         #     return False
 
-    #TODO вызывать данный метод в run
-    def update_event(self, chat_id:id, new_user_id: id) -> None:
+    # TODO вызывать данный метод в run
+    def update_event(self, chat_id: id, new_user_id: id) -> None:
         query = Game.select().where(
             (Game.chat_id == chat_id)
         )
@@ -94,9 +93,9 @@ class GameHandsomeOFTheDay(BasicGame):
             record_game.date_handsome_of_day = datetime.now()
             record_game.user_id = new_user_id
             record_game.save()
-            
-    #TODO вызывать данный метод в run
-    def get_user_id(self, chat_id:id) -> Optional[id]:
+
+    # TODO вызывать данный метод в run
+    def get_user_id(self, chat_id: id) -> Optional[id]:
         query = Game.select(Game.user_id).where(
             (Game.chat_id == chat_id)
         )
@@ -106,10 +105,10 @@ class GameHandsomeOFTheDay(BasicGame):
             assert len(query) == 1, "В таблице найдены дубликаты"
             event: Game = query[0]
             return event.user_id
-        
+
     def drop_data(self, chat_id: id) -> bool:
         query = Game.select().where(
-            (Game.chat_id == chat_id) 
+            (Game.chat_id == chat_id)
         )
         flag = False
         for id in query:
@@ -117,6 +116,7 @@ class GameHandsomeOFTheDay(BasicGame):
             print(f"Game was removed {id} chat_id = {chat_id};")
 
         return flag
+
 
 HandsomeOFTheDay = GameHandsomeOFTheDay()
 
