@@ -26,22 +26,28 @@ bot = telebot.TeleBot(API_TOKEN)
 # Handle '/start' and '/help'
 @bot.message_handler(commands=['help', 'start'])
 def send_welcome(message):
-    bot.reply_to(message, """\
-Всем привет!\
-""")
+    msg =  """\
+Данный бот предназначен для выбора Красавчика дня!
+Доступные команды:
+- /run - Запуск рулетки
+- /stats - Статистика
+- /join - Вступить в игру
+- /delete_me - Выйти из игры
+- /drop_statistics - Обнуление статистики\
+"""
+    bot.send_message(message.chat.id, msg, disable_notification=True)
 
 
-# Handle '/start' and '/help'
-@bot.message_handler(commands=['me'])
-def send_welcome(message):
-    chat_id = message.chat.id
-    print(message.chat)
-    name = message.from_user.first_name
-    bot.reply_to(message, f"""\
-{name}
-{message.from_user}
+# # Handle '/start' and '/help'
+# @bot.message_handler(commands=['me'])
+# def send_welcome(message):
+#     print(message.chat)
+#     name = message.from_user.first_name
+#     bot.reply_to(message, f"""\
+# {name}
+# {message.from_user}
 
-""")
+# """)
 
 # bot.get_chat()
 # bot.get_me()
@@ -75,7 +81,7 @@ def remove_user_from_game(message):
 
 
 @bot.message_handler(commands=['drop_statistics'])
-def remove_user_from_game(message):
+def drop_statistics(message):
     chat_id = message.chat.id
     bl.drop_statistics(chat_id)
     bot.reply_to(message, f"Статистика была обнулена!")
@@ -83,7 +89,7 @@ def remove_user_from_game(message):
 
 # Handle '/start' and '/help'
 @bot.message_handler(commands=['stats'])
-def add_new_user_in_game(message):
+def show_statistics(message):
     chat_id = message.chat.id
     msg = bl.get_statistics(chat_id)
     bot.reply_to(message, msg)
@@ -91,24 +97,24 @@ def add_new_user_in_game(message):
 
 # Handle '/start' and '/help'
 @bot.message_handler(commands=['run'])
-def add_new_user_in_game(message):
+def run_the_game(message):
     chat_id = message.chat.id
     user_id, msg  = bl.randomly_choose_one_user(chat_id)
     for line in msg.split("\n"):
-        bot.send_message(chat_id, line)
+        bot.send_message(chat_id, line, disable_notification=True)
         sleep(1)
-    list_user_id = bl.user_selected_title(chat_id)
-    for id in list_user_id:
-        bot.set_chat_administrator_custom_title(chat_id, user_id, "Красавчик дня" if id == user_id else "")
+    # list_user_id = bl.user_selected_title(chat_id)
+    # for id in list_user_id:
+    #     bot.set_chat_administrator_custom_title(chat_id, user_id, "Красавчик дня" if id == user_id else "")
 
 
-# Handle '/start' and '/help'
-@bot.message_handler(commands=['test'])
-def test(message):
-    chat_id = message.chat.id
-    user_id = message.from_user.id
-    print(chat_id,user_id)
-    print(bot.set_chat_administrator_custom_title(chat_id, user_id, "Красавчик дня"))
+# # Handle '/start' and '/help'
+# @bot.message_handler(commands=['test'])
+# def test(message):
+#     chat_id = message.chat.id
+#     user_id = message.from_user.id
+#     print(chat_id,user_id)
+#     print(bot.set_chat_administrator_custom_title(chat_id, user_id, "Красавчик дня"))
 
 
 # # Handle all other messages with content_type 'text' (content_types defaults to ['text'])

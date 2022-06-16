@@ -58,7 +58,7 @@ class GameHandsomeOFTheDay(BasicGame):
         new_record = Game(
             chat_id=chat_id,
             user_id=user_id,
-            date_handsome_of_day=datetime.date(datetime.now()),
+            date_handsome_of_day=datetime.now().date(),
             handsome_of_day=True,
         )
         new_record.save()
@@ -66,7 +66,7 @@ class GameHandsomeOFTheDay(BasicGame):
         return new_record.id
 
     def _available_game(self, record_game: Game) -> bool:
-        return not record_game.date_handsome_of_day == datetime.date(datetime.now())
+        return not record_game.date_handsome_of_day == datetime.now().date()
     
     # def _update_event(self, record_event: Game) -> bool:
         # if self._available_game(record_event):
@@ -90,7 +90,7 @@ class GameHandsomeOFTheDay(BasicGame):
         else:
             assert len(query) == 1, "В таблице найдены дубликаты"
             record_game: Game = query[0]
-            record_game.date_handsome_of_day = datetime.now()
+            record_game.date_handsome_of_day = datetime.now().date()
             record_game.user_id = new_user_id
             record_game.save()
 

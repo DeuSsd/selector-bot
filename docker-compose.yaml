@@ -7,6 +7,7 @@ services:
     command: bash -c "python /app/src/bot/models/create_tables.py && python /app/src/bot/app.py"
     environment:
       TOKEN: "0123456789:ABCDEFGHIABCDEFGHIJKLMNOPQRSTUVWXYZ"
+      TZ: "Europe/Moscow"
     ports:
       - 80:80
       - 443:443
